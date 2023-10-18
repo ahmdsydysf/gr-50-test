@@ -1,0 +1,1 @@
+resources/views/front/users/add.blade.php

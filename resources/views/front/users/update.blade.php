@@ -1,0 +1,1 @@
+resources/views/front/users/update.blade.php
