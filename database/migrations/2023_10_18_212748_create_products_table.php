@@ -10,9 +10,14 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->string('cat_img')->default('cat1.jpg');
-            $table->enum('status', ['actv' , 'inactv']);
+        Schema::create('products', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('price');
+            $table->foreignId('category_id')->nullable()->constrained('categories', 'cat_id')->nullOnDelete();
+            $table->timestamps();
+
+
         });
     }
 
@@ -21,8 +26,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::table('categories', function (Blueprint $table) {
-            $table->dropColumn(['cat_img' , 'status']);
-        });
+        Schema::dropIfExists('products');
     }
 };

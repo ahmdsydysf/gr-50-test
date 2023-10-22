@@ -8,22 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'name',
-        'cat_code',
-        'cat_desc',
-        'status',
-    ];
 
+    protected $primaryKey = 'cat_id';
+    protected $fillable = ['name' , 'cat_id' , 'parent_category_id'];
 
-    // protected $guarded = ['status'];
+    public function Products()
+    {
+        return $this->hasMany(Product::class, 'category_id', 'cat_id');
+    }
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
-    // protected $casts = [
-    //     'cat_code' => 'hashed',
-    // ];
+    public function Children()
+    {
+        return $this->hasMany(Category::class, 'parent_category_id', 'cat_id');
+    }
+    public function Parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_category_id', 'cat_id')->withDefault(['name' => 'Main Parent']);
+    }
 }

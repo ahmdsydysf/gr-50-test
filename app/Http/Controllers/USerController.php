@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 
 class USerController extends Controller
@@ -12,6 +13,11 @@ class USerController extends Controller
      */
     public function index(Request $request)
     {
+
+        // $user = Profile::all()->where('first_name','=','ahmed')->get();
+
+        // dd($user->Profile);
+
         $data = User::when($request->search, function ($query, $value) use ($request) {
             if($request->cat_select == '*') {
                 $query->where('name', 'like', "%$value%")
