@@ -5,11 +5,16 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Car;
+use App\Models\Post;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Country;
 use App\Models\Project;
 use App\Models\Mechanic;
 use Illuminate\Database\Seeder;
+use Database\Factories\PostFactory;
+use Database\Factories\UserFactory;
+use Database\Factories\CountryFactory;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,7 +24,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        // $this->call(UserSeeder::class);
+
         // $this->call(BranchSeeder::class);
         // $this->call(CategorySeeder::class);
         // $this->call(TaskSeeder::class);
@@ -34,8 +39,12 @@ class DatabaseSeeder extends Seeder
         //             });
         //         });
 
-
-
+        $this->call(CountrySeeder::class);
+        $this->call(PostSeeder::class);
+        $this->call(UserSeeder::class);
+        Country::factory(5)->create();
+        Post::factory(5)->create();
+        User::factory(5)->create();
         Mechanic::factory(10)->create()
         ->each(function ($mecha) {
             Car::factory(1)->create([

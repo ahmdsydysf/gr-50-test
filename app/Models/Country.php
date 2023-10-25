@@ -8,4 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Country extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
+
+    public function Users()
+    {
+        return $this->hasMany(User::class);
+    }
+
+    public function Posts()
+    {
+        return $this->hasManyThrough(Post::class, User::class);
+    }
 }

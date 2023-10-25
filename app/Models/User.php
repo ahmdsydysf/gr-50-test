@@ -24,6 +24,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'car_id',
+        'country_id'
     ];
 
     /**
@@ -45,6 +47,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function Posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+    public function Country()
+    {
+        return $this->belongsTo(Country::class);
+    }
 
 
 }
