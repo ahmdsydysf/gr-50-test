@@ -10,13 +10,14 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id('cat_id');
-            $table->string('name');
-            $table->foreignId('parent_category_id')->nullable()->constrained('categories', 'cat_id');
+        Schema::create('images', function (Blueprint $table) {
+            $table->id();
+            $table->string('path');
+            // $table->unsignedBigInteger('imageable_id');
+            // $table->string('imageable_type');
+            $table->morphs('imageable');
             $table->timestamps();
             $table->engine = 'InnoDB';
-
 
         });
     }
@@ -26,6 +27,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('images');
     }
 };

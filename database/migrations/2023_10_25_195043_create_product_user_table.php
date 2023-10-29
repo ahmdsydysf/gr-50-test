@@ -10,14 +10,12 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id('cat_id');
-            $table->string('name');
-            $table->foreignId('parent_category_id')->nullable()->constrained('categories', 'cat_id');
-            $table->timestamps();
+        Schema::create('product_user', function (Blueprint $table) {
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->foreignId('product_id')->constrained('products')->cascadeOnDelete();
             $table->engine = 'InnoDB';
 
-
+            // $table->primary(['user_id','product_id']);
         });
     }
 
@@ -26,6 +24,6 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::dropIfExists('product_user');
     }
 };

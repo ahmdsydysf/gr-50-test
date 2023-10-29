@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
@@ -13,17 +14,20 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        // $data = Category::findOrFail(15);
+        $data = Product::all();
 
-        $data = Category::when($request->search, function ($query, $value) use ($request) {
-            if($request->cat_select == '*') {
-                $query->where('name', 'like', "%$value%")
-                    ->orWhere('cat_code', 'like', "%$value%")
-                    ->orWhere('cat_desc', 'like', "%$value%");
-            } else {
-                $query->where("$request->cat_select", 'like', "%$value%");
-            }
-        })->get();
+        //  $data->load("Category");
+        // $data = Product::with(['Category' => ['Parent:cat_id,name' , 'Children']])->get();//Eager Load
+        // dd($data);
+        // $data = Category::when($request->search, function ($query, $value) use ($request) {
+        //     if($request->cat_select == '*') {
+        //         $query->where('name', 'like', "%$value%")
+        //             ->orWhere('cat_code', 'like', "%$value%")
+        //             ->orWhere('cat_desc', 'like', "%$value%");
+        //     } else {
+        //         $query->where("$request->cat_select", 'like', "%$value%");
+        //     }
+        // })->get();
 
         return view('categories.allCategory')->with('data', $data);
     }

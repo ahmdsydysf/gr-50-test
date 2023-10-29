@@ -15,7 +15,7 @@
 
 <body>
 
-    <x-alerts.alert title='category' clr='danger' />
+
 
     {{--
 
@@ -28,7 +28,7 @@
         {{-- @include('compo.alert') --}}
         {{-- @dump(Session::all()) --}}
         <h1> all Categories </h1>
-        <form action="{{ route('category.index') }}" method="get">
+        {{-- <form action="{{ route('category.index') }}" method="get">
             <select name="cat_select" id="">
 
                 <option value="*">all</option>
@@ -39,40 +39,46 @@
             </select>
             <input type="text" name="search">
             <button class="btn btn-primary">search <i class='fa fa-search'> </button>
-        </form>
-        <a href="{{ route('category.create') }}" class="btn btn-success">add new category</a>
+        </form> --}}
+        {{-- <a href="{{ route('category.create') }}" class="btn btn-success">add new category</a> --}}
 
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">category name</th>
-                    <th scope="col">category code</th>
-                    <th scope="col">category Desc</th>
-                    <th scope="col">category Img</th>
-                    <th scope="col">category Status</th>
+                    <th scope="col">product name</th>
+                    <th scope="col">product price</th>
+                    <th scope="col">product category</th>
+                    <th scope="col">parent category</th>
+                    {{-- <th scope="col">product Img</th>
+                    <th scope="col">product Status</th> --}}
                     <th scope="col">Handle</th>
                 </tr>
             </thead>
             <tbody>
 
-                @foreach ( $data as $ind => $d )
+                @foreach ( $data as $ind => $product )
 
                 <tr>
                     <th scope="row">{{ $ind + 1 }}</th>
-                    <td>{{ $d->name }}</td>
-                    <td>{{ $d->cat_code }}</td>
-                    <td>{{ $d->cat_desc }}</td>
-                    <td><img src="{{ asset('images/category/' . $d->cat_img) }}" width="150px" height="150" alt=""></td>
-                    <td>{{ $d->status }}</td>
+                    <td>{{ $product->name }}</td>
+                    <td>{{ $product->price }}</td>
+                    <td>{{ $product->Category->name }}</td>
+                    <td>{{ $product->Category->Parent->name }}</td>
+                    {{-- <td>{{ $product->Category->Parent->name ?? 'Main Category' }}</td> --}}
+                    {{-- <td>{{ $product?->Category?->Parent?->name }}</td> --}}
+                    {{-- <td><img src="{{ asset('images/category/' . $product->cat_img) }}" width="150px" height="150"
+                            alt=""></td>
+                    <td>{{ $product->status }}</td> --}}
                     <td>
-                        <a href="{{ route('category.edit' , ['category' => $d->id ]) }}" class="btn btn-info">edt</a>
+                        {{-- <a href="{{ route('category.edit' , ['category' => $d->id ]) }}"
+                            class="btn btn-info">edt</a>
 
                         <form action="{{ route('category.destroy' , ['category' => $d->id ]) }}" method="post">
                             @csrf
                             @method('DELETE')
                             <button class="btn btn-danger">del</button>
-                        </form>
+                        </form> --}}
                     </td>
                 </tr>
 

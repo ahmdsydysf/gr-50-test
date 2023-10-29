@@ -3,10 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Car;
+use App\Models\Mechanic;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -49,5 +51,41 @@ class User extends Authenticatable
     public function Profile()
     {
         return $this->hasOne(Profile::class, 'user_id', 'id');
+    }
+
+    public function Products()
+    {
+        return $this->belongsToMany(Product::class, 'product_user', 'user_id', 'product_id', 'id', 'id');
+    }
+
+    // public function Mechanic()
+    // {
+    //     return $this->hasOneThrough(Mechanic::class, Car::class, 'mechanic_id', 'car_id', 'id', 'id');
+    // }
+
+
+    public function Car()
+    {
+        return $this->belongsTo(Car::class, 'car_id', 'id');
+    }
+
+    public function Country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function Posts()
+    {
+        return $this->hasMany(Post::class);
+    }
+
+    public function Image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function latestImage()
+    {
+        return $this->morphOne(Image::class, 'imageable')->latestOfMany();
     }
 }

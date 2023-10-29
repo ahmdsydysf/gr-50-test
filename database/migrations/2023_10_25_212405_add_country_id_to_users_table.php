@@ -10,14 +10,8 @@ return new class () extends Migration {
      */
     public function up(): void
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->id('cat_id');
-            $table->string('name');
-            $table->foreignId('parent_category_id')->nullable()->constrained('categories', 'cat_id');
-            $table->timestamps();
-            $table->engine = 'InnoDB';
-
-
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignId('country_id')->nullable()->constrained('countries');
         });
     }
 
@@ -26,6 +20,9 @@ return new class () extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('categories');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('country_id');
+
+        });
     }
 };

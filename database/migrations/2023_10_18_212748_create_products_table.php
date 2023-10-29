@@ -16,6 +16,7 @@ return new class () extends Migration {
             $table->string('price');
             $table->foreignId('category_id')->nullable()->constrained('categories', 'cat_id')->nullOnDelete();
             $table->timestamps();
+            $table->engine = 'InnoDB';
 
 
         });
